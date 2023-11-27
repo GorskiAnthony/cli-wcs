@@ -1,0 +1,41 @@
+{
+	"name": "cli-wcs",
+	"version": "1.0.0",
+	"description": "Ce package permet de créer des controllers.",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"test:watch": "jest --watch"
+	},
+	"author": {
+		"name": "Anthony gorski",
+		"email": "anthony.gorski@wildcodeschool.com"
+	},
+	"bin": {
+		"cli-wcs": "index.js"
+	},
+	"bugs": {
+		"url": "https://github.com/GorskiAnthony/wcs-cli/issues"
+	},
+	"homepage": "https://github.com/GorskiAnthony/wcs-cli#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GorskiAnthony/wcs-cli.git"
+	},
+	"keywords": [
+		"cli",
+		"wcs",
+		"controller",
+		"manager",
+		"js",
+		"Wild Code School",
+		"template"
+	],
+	"license": "ISC",
+	"dependencies": {
+		"commander": "^11.1.0"
+	},
+	"devDependencies": {
+		"jest": "^29.7.0"
+	}
+}

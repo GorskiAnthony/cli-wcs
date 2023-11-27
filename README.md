@@ -1,4 +1,4 @@
-<h1 align="center">Bienvenue sur cli-wcs 👋</h1>
+<h1 align="center">Bienvenue sur cli-wild 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/GorskiAnthony/wcs-cli#readme" target="_blank">
@@ -19,21 +19,21 @@
 ## Install
 
 ```sh
-npm install -g cli-wcs
+npm install -g cli-wild
 ```
 
 ## Liste des commandes
 
 ```sh
-cli-wcs make:controller <nom_du_fichier> # Créer un controller
-cli-wcs make:manager <nom_du_fichier> # Créer un model
+cli-wild make:controller <nom_du_fichier> # Créer un controller
+cli-wild make:manager <nom_du_fichier> # Créer un model
 ```
 
 ## Flags
 
 ```sh
-cli-wcs make:controller <nom_du_fichier> -a # Créer un controller avec les méthodes browse, read, edit, add et destroy
-cli-wcs make:manager <nom_du_fichier> -a # Créer un model avec les méthodes create, read, update et delete
+cli-wild make:controller <nom_du_fichier> -a # Créer un controller avec les méthodes browse, read, edit, add et destroy
+cli-wild make:manager <nom_du_fichier> -a # Créer un model avec les méthodes create, read, update et delete
 ```
 
 ## Usage
@@ -43,23 +43,23 @@ Il faut se placer dans le dossier `backend` du repository de la [Wild Code Schoo
 Avec `<nom_du_fichier>` qui est le nom du fichier que vous voulez créer écrit en **minuscule** et sans les noms `controller` ou `manager`.
 
 ```sh
-cli-wcs make:controller <nom_du_fichier>
+cli-wild make:controller <nom_du_fichier>
 # OU
-npx cli-wcs make:controller <nom_du_fichier>
+npx cli-wild make:controller <nom_du_fichier>
 ```
 
 ## Exemples
 
 ```sh
-cli-wcs make:controller user
+cli-wild make:controller user
 # OU
-npx cli-wcs make:controller user -a
+npx cli-wild make:controller user -a
 ```
 
 ```sh
-cli-wcs make:manger user -a
+cli-wild make:manger user -a
 # OU
-npx cli-wcs make:manager user
+npx cli-wild make:manager user
 ```
 
 Pour plus d'exemples, il faut se rendre dans le dossier [examples](./examples) du repository.
@@ -88,7 +88,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 
 ### 🗃️ Version
 
--   **v1.0.0** - Version 1 stable de la CLI `cli-wcs`
+-   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
 
 ---
 

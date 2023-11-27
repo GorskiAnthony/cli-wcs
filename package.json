@@ -1,7 +1,7 @@
 {
-	"name": "cli-wcs",
+	"name": "cli-wild",
 	"version": "1.0.0",
-	"description": "Ce package permet de créer des controllers.",
+	"description": "Ce package permet de créer des controllers, manager sur le template de projet de la Wild Code School",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",

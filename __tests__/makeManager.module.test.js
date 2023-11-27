@@ -1,19 +1,20 @@
 const execa = require("execa");
 const fs = require("fs").promises;
 const path = require("path");
+const capitalize = require("../services/capitalize");
 
-const makeController = async (choice) =>
+const makeManager = async (choice) =>
 	new Promise((resolve, reject) => {
-		const commandArgs = ["index.js", "make:controller"];
+		const commandArgs = ["index.js", "make:manager"];
 		const subprocess = execa("node", commandArgs);
 
 		subprocess.stdout.on("data", async (data) => {
-			if (data.includes("Quel est le nom du controller ?")) {
+			if (data.includes("Quel est le nom du manager ?")) {
 				subprocess.stdin.write(choice.nom + "\n");
 			}
 			if (
 				data.includes(
-					"Voulez-vous générer toutes les méthodes du controller ? (B.R.E.A.D)"
+					"Voulez-vous générer toutes les méthodes du manager ? (C.R.U.D)"
 				)
 			) {
 				subprocess.stdin.write(choice.option + "\n");
@@ -29,8 +30,8 @@ const makeController = async (choice) =>
 			// Construire le chemin du fichier de contrôleur
 			const filePath = path.resolve(
 				__dirname,
-				"../src/controllers",
-				`${choice.nom}Controllers.js`
+				"../src/models",
+				`${choice.nom}Manager.js`
 			);
 
 			// Vérifie que le fichier a bien été créé
@@ -44,9 +45,11 @@ const makeController = async (choice) =>
 			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
 			const fileContent = await fs.readFile(filePath, "utf-8");
 			if (
-				!fileContent.includes(`const browse = async (req, res, next) => {
-  // Ton code ici
-};`)
+				!fileContent.includes(
+					`class ${capitalize(
+						choice.nom
+					)}Manager extends AbstractManager`
+				)
 			) {
 				reject(new Error("Le contenu du fichier n'est pas correct"));
 				return;
@@ -55,14 +58,14 @@ const makeController = async (choice) =>
 		});
 	});
 
-describe("make:controller", () => {
+describe("make:manager", () => {
 	test("with simple file", async () => {
-		await makeController({ nom: "test", option: "false" });
+		await makeManager({ nom: "test", option: "false" });
 		expect(true).toBe(true);
 	});
 
 	test("with complex file", async () => {
-		await makeController({ nom: "test", option: "true" });
+		await makeManager({ nom: "test", option: "true" });
 		expect(true).toBe(true);
 	});
 });

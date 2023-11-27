@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const { program } = require("commander");
-const { createPromptModule } = require("inquirer");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
 
 const capitalize = require("./services/capitalize");

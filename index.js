@@ -13,7 +13,7 @@ const promptManager = require("./services/promptManager");
 
 program
 	.version("1.0.0")
-	.description("CLI pour générer des fichiers controller.");
+	.description("CLI pour générer des fichiers controller et des managers.");
 
 // Commande avec option
 program

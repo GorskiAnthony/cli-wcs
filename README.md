@@ -33,8 +33,6 @@ cli-wild make:manager # Créer un model
 
 Il faut se placer dans le dossier `backend` du repository de la [Wild Code School](https://github.com/WildCodeSchool/js-template-fullstack) pour utiliser ce package correctement.
 
-Avec `qui est le nom du fichier que vous voulez créer écrit en **minuscule** et sans les noms`controller`ou`manager`.
-
 ```sh
 cli-wild make:controller
 # OU

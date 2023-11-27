@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
 const { program } = require("commander");
+const { createPromptModule } = require("inquirer");
+const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const prompt = createPromptModule();
+
 const capitalize = require("./services/capitalize");
+const promptController = require("./services/promptController");
+const promptManager = require("./services/promptManager");
 
 program
 	.version("1.0.0")
@@ -24,10 +30,14 @@ program
 
 // Nouvelle commande make:controller
 program
-	.command("make:controller <nom>")
+	.command("make:controller")
 	.description("Crée un fichier controller dans le dossier Controller")
-	.option("-a, --all", "Génère un fichier complet")
-	.action((nom, options) => {
+	.action(async () => {
+		const choice = await prompt([
+			promptController.inputController,
+			promptController.confirmController,
+		]);
+
 		const projectRoot = process.cwd();
 		const srcFolder = path.join(projectRoot, "src");
 		const controllerFolder = path.join(srcFolder, "controllers");
@@ -45,7 +55,7 @@ program
 		// Chemin complet du fichier à créer
 		const filePath = path.join(
 			controllerFolder,
-			`${nom.toLowerCase()}Controllers.js`
+			`${choice.nom.toLowerCase()}Controllers.js`
 		);
 
 		// Contenu du fichier
@@ -58,7 +68,7 @@ const browse = async (req, res, next) => {
 `;
 
 		// Ajouter du contenu supplémentaire si l'option --all est spécifiée
-		if (options.all) {
+		if (choice.option) {
 			fileContent += `
 const read = async (req, res, next) => {
   // Ton code pour la fonction read ici
@@ -95,15 +105,25 @@ module.exports = {
 		// Créer le fichier avec le contenu
 		fs.writeFileSync(filePath, fileContent);
 
-		console.log(`Fichier controller créé avec succès : ${filePath}`);
+		console.log(
+			chalk.greenBright(
+				`🎊 Fichier controller créé avec succès : ${filePath
+					.split("/")
+					.pop()}`
+			)
+		);
 	});
 
 // Nouvelle commande make:manager
 program
-	.command("make:manager <nom>")
+	.command("make:manager")
 	.description("Crée un fichier manager dans le dossier Managers")
-	.option("-a, --all", "Génère un fichier complet")
-	.action((nom, options) => {
+	.action(async () => {
+		const choice = await prompt([
+			promptManager.inputManager,
+			promptManager.confirmManager,
+		]);
+
 		const projectRoot = process.cwd();
 		const srcFolder = path.join(projectRoot, "src");
 		const managerFolder = path.join(srcFolder, "models");
@@ -121,18 +141,18 @@ program
 		// Chemin complet du fichier à créer
 		const filePath = path.join(
 			managerFolder,
-			`${capitalize(nom)}Manager.js`
+			`${capitalize(choice.nom)}Manager.js`
 		);
 
 		// Contenu du fichier
 		let fileContent = `
 const AbstractManager = require("./AbstractManager");
 
-class ${capitalize(nom)}Manager extends AbstractManager {
+class ${capitalize(choice.nom)}Manager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "${nom}" as configuration
-    super({ table: "${nom.toLowerCase()}" });
+    // and pass the table name "${choice.nom}" as configuration
+    super({ table: "${choice.nom}" });
   }
   
   // The Rs of CRUD - Read operations
@@ -148,7 +168,9 @@ class ${capitalize(nom)}Manager extends AbstractManager {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "${nom}" table
+    // Execute the SQL SELECT query to retrieve all items from the "${
+		choice.nom
+	}" table
     const [rows] = await this.database.query(\`select * from \${this.table}\`);
 
     // Return the array of items
@@ -156,11 +178,11 @@ class ${capitalize(nom)}Manager extends AbstractManager {
   }
 
   ${
-		options.all
+		choice.option
 			? `
   // The C of CRUD - Create operation
   async create(item) {
-    // Execute the SQL INSERT query to add a new item to the "${nom}" table
+    // Execute the SQL INSERT query to add a new item to the "${choice.nom}" table
     const [result] = await this.database.query(
       \`insert into \${this.table} (title) values (?)\`,
       [item.title]
@@ -170,27 +192,43 @@ class ${capitalize(nom)}Manager extends AbstractManager {
     return result.insertId;
   }
 
-  // The U of CRUD - Update operation
-  async update(item) {
-    // TODO: Implement the update operation to modify an existing item
-  }
+	// The U of CRUD - Update operation
+	async update(item) {
+		// Execute the SQL UPDATE query to update an existing item in the "${choice.nom}" table
+		const [result] = await this.database.query(
+			\`update \${this.table} set title = ? where id = ?\`,
+			[item.title, item.id]
+		);
+		return result.affectedRows;
+	}
 
-  // The D of CRUD - Delete operation
-  async delete(id) {
-    // TODO: Implement the delete operation to remove an item by its ID
-  }
+	// The D of CRUD - Delete operation
+	async delete(id) {
+		// Execute the SQL DELETE query to remove the item from the "${choice.nom}" table
+		const [result] = await this.database.query(
+			\`delete from \${this.table} where id = ?\`,
+			[id]
+		);
+		return result.affectedRows;
+	}
   `
 			: ""
   }
 }
 
-module.exports = ${capitalize(nom)}Manager;
+module.exports = ${capitalize(choice.nom)}Manager;
 `;
 
 		// Créer le fichier avec le contenu
 		fs.writeFileSync(filePath, fileContent);
 
-		console.log(`Fichier manager créé avec succès : ${filePath}`);
+		console.log(
+			chalk.green(
+				`Fichier manager créé avec succès : ${filePath
+					.split("/")
+					.pop()} 🚀`
+			)
+		);
 	});
 
 // Analyser les arguments de la ligne de commande

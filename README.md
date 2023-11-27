@@ -25,42 +25,23 @@ npm install -g cli-wild
 ## Liste des commandes
 
 ```sh
-cli-wild make:controller <nom_du_fichier> # Créer un controller
-cli-wild make:manager <nom_du_fichier> # Créer un model
-```
-
-## Flags
-
-```sh
-cli-wild make:controller <nom_du_fichier> -a # Créer un controller avec les méthodes browse, read, edit, add et destroy
-cli-wild make:manager <nom_du_fichier> -a # Créer un model avec les méthodes create, read, update et delete
+cli-wild make:controller # Créer un controller
+cli-wild make:manager # Créer un model
 ```
 
 ## Usage
 
 Il faut se placer dans le dossier `backend` du repository de la [Wild Code School](https://github.com/WildCodeSchool/js-template-fullstack) pour utiliser ce package correctement.
 
-Avec `<nom_du_fichier>` qui est le nom du fichier que vous voulez créer écrit en **minuscule** et sans les noms `controller` ou `manager`.
+Avec `qui est le nom du fichier que vous voulez créer écrit en **minuscule** et sans les noms`controller`ou`manager`.
 
 ```sh
-cli-wild make:controller <nom_du_fichier>
+cli-wild make:controller
 # OU
-npx cli-wild make:controller <nom_du_fichier>
+npx cli-wild make:controller
 ```
 
 ## Exemples
-
-```sh
-cli-wild make:controller user
-# OU
-npx cli-wild make:controller user -a
-```
-
-```sh
-cli-wild make:manger user -a
-# OU
-npx cli-wild make:manager user
-```
 
 Pour plus d'exemples, il faut se rendre dans le dossier [examples](./examples) du repository.
 

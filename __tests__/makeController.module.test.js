@@ -55,14 +55,35 @@ const makeController = async (choice) =>
 		});
 	});
 
+const cleanup = async (choice) => {
+	// Construire le chemin du fichier de contrôleur
+	const filePath = path.resolve(
+		__dirname,
+		"../src/controllers",
+		`${choice.nom}Controllers.js`
+	);
+
+	try {
+		// Supprimer le fichier
+		await fs.unlink(filePath);
+		console.log(`Fichier ${filePath} supprimé avec succès.`);
+	} catch (error) {
+		console.error(
+			`Erreur lors de la suppression du fichier ${filePath}: ${error.message}`
+		);
+	}
+};
+
 describe("make:controller", () => {
 	test("with simple file", async () => {
 		await makeController({ nom: "test", option: "false" });
 		expect(true).toBe(true);
+		await cleanup({ nom: "test" });
 	});
 
 	test("with complex file", async () => {
 		await makeController({ nom: "test", option: "true" });
 		expect(true).toBe(true);
+		await cleanup({ nom: "test" });
 	});
 });

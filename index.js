@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const { program } = require("commander");
-const { createPromptModule } = require("inquirer");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
 
 const capitalize = require("./services/capitalize");
@@ -13,7 +13,7 @@ const promptManager = require("./services/promptManager");
 
 program
 	.version("1.0.0")
-	.description("CLI pour générer des fichiers controller.");
+	.description("CLI pour générer des fichiers controller et des managers.");
 
 // Commande avec option
 program

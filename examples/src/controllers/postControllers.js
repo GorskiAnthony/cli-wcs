@@ -1,8 +1,6 @@
 /**
- * Avec le flag --all, le contenu du fichier sera:
+ * Si ont choisi toutes les méthodes, le contenu du fichier sera:
  */
-
-const tables = require("../tables");
 
 const browse = async (req, res, next) => {
 	// Ton code ici

@@ -1,5 +1,5 @@
 /**
- * Avec le flag --all, le contenu du fichier sera:
+ * Si ont choisi toutes les méthodes, le contenu du fichier sera:
  */
 
 const AbstractManager = require("./AbstractManager");

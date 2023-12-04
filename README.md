@@ -1,6 +1,6 @@
 <h1 align="center">Bienvenue sur cli-wild 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/GorskiAnthony/wcs-cli#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> Ce package permet de générer des controllers, des models pour le repository de la [Wild Code School](https://github.com/WildCodeSchool/js-template-fullstack) en ligne de commande.
+> Ce package permet de générer des controllers ainsi que des models pour votre backend via la CLI.
 
 ### 🏠 [Homepage](https://github.com/GorskiAnthony/wcs-cli#readme)
 
@@ -31,7 +31,7 @@ cli-wild make:manager # Créer un model
 
 ## Usage
 
-Il faut se placer dans le dossier `backend` du repository de la [Wild Code School](https://github.com/WildCodeSchool/js-template-fullstack) pour utiliser ce package correctement.
+Il faut se déplacer dans le dossier (`backend`) de votre projet et lancer la commande suivante :
 
 ```sh
 cli-wild make:controller
@@ -68,6 +68,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 ### 🗃️ Version
 
 -   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
+-   **v1.1.0** - Ajout des questions pour la création d'un controller
 
 ---
 

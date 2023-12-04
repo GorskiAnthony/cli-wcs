@@ -59,9 +59,7 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `const tables = require("../tables");
-
-const browse = async (req, res, next) => {
+		let fileContent = `const browse = async (req, res, next) => {
   // Ton code ici
 };
 
@@ -146,9 +144,7 @@ program
 
 		// Contenu du fichier
 		let fileContent = `
-const AbstractManager = require("./AbstractManager");
-
-class ${capitalize(choice.nom)}Manager extends AbstractManager {
+class ${capitalize(choice.nom)}Manager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "${choice.nom}" as configuration

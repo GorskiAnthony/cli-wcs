@@ -44,6 +44,7 @@ Celui-ci va vous poser des questions afin de générer le controller & votre man
 
 ![exemple1](./docs/controllers.png)
 ![exemple2](./docs/managers.png)
+![exemple3](./docs/abstract.png)
 ![error](./docs/errorController.png)
 
 ## Exemples

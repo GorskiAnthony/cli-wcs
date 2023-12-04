@@ -1,6 +1,6 @@
 <h1 align="center">Bienvenue sur cli-wild 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.2.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.2.2-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/GorskiAnthony/wcs-cli#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -44,6 +44,7 @@ Celui-ci va vous poser des questions afin de générer le controller & votre man
 
 ![exemple1](./docs/controllers.png)
 ![exemple2](./docs/managers.png)
+![exemple3](./docs/abstract.png)
 ![error](./docs/errorController.png)
 
 ## Exemples

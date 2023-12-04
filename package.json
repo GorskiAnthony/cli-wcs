@@ -1,6 +1,6 @@
 {
 	"name": "cli-wild",
-	"version": "1.2.1",
+	"version": "1.2.3",
 	"description": "Ce package permet de créer des controllers, manager sur le template de projet de la Wild Code School",
 	"main": "index.js",
 	"scripts": {
@@ -34,11 +34,11 @@
 	"dependencies": {
 		"chalk": "^4.1.2",
 		"commander": "^11.1.0",
-		"inquirer": "^8.2.6"
+		"inquirer": "^8.2.6",
+		"mustache": "^4.2.0"
 	},
 	"devDependencies": {
 		"execa": "^5.1.1",
-		"jest": "^29.7.0",
-		"mustache": "^4.2.0"
+		"jest": "^29.7.0"
 	}
 }

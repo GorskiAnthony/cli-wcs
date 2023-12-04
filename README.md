@@ -76,6 +76,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 
 -   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
 -   **v1.1.0** - Ajout des questions pour la création d'un controller
+-   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
 
 ---
 

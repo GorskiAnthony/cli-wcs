@@ -4,6 +4,8 @@ const { program } = require("commander");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const mustache = require("mustache");
+
 const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
 
@@ -11,8 +13,10 @@ const capitalize = require("./services/capitalize");
 const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 
+const VERSION = "1.1.2";
+
 program
-	.version("1.0.0")
+	.version(VERSION)
 	.description("CLI pour générer des fichiers controller et des managers.");
 
 // Commande avec option
@@ -22,9 +26,9 @@ program
 	.option("-v, --version", "Affiche la version")
 	.action((options) => {
 		if (options.version) {
-			console.log("Version 1.0.0");
+			console.log(`Version: ${VERSION}`);
 		} else {
-			console.log("Informations générales.");
+			console.log("Aucune option spécifiée");
 		}
 	});
 
@@ -59,55 +63,35 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `const browse = async (req, res, next) => {
-  // Ton code ici
-};
-
-`;
+		let fileContent = "";
 
 		// Ajouter du contenu supplémentaire si l'option --all est spécifiée
 		if (choice.option) {
-			fileContent += `
-const read = async (req, res, next) => {
-  // Ton code pour la fonction read ici
-};
-
-const edit = async (req, res, next) => {
-  // Ton code pour la fonction edit ici
-};
-
-const add = async (req, res, next) => {
-	  // Ton code pour la fonction add ici
-};
-
-const destroy = async (req, res, next) => {
-	  // Ton code pour la fonction destroy ici
-};
-
-
-module.exports = {
-  browse,
-  read,
-  edit,
-  add,
-  destroy,
-};
-`;
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/controllers/controllersAll.mustache",
+				"utf8"
+			);
 		} else {
-			fileContent += `module.exports = {
-  browse,
-};
-`;
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/controllers/controllersUnique.mustache",
+				"utf8"
+			);
 		}
 
-		// Créer le fichier avec le contenu
-		fs.writeFileSync(filePath, fileContent);
+		const controllers = mustache.render(fileContent);
 
+		// Créer le fichier avec le contenu
+		fs.writeFileSync(filePath, controllers, (err) => {
+			if (err) throw err;
+		});
 		console.log(
 			chalk.greenBright(
-				`🎊 Fichier controller créé avec succès : ${filePath
-					.split("/")
-					.pop()}`
+				`Le fichier ${
+					choice.nom
+				}Controllers a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
 			)
 		);
 	});
@@ -143,86 +127,85 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `
-class ${capitalize(choice.nom)}Manager {
-  constructor() {
-    // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "${choice.nom}" as configuration
-    super({ table: "${choice.nom}" });
-  }
-  
-  // The Rs of CRUD - Read operations
-  async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific item by its ID
-    const [rows] = await this.database.query(
-      \`select * from \${this.table} where id = ?\`,
-      [id]
-    );
+		let fileContent = "";
 
-    // Return the first row of the result, which represents the item
-    return rows[0];
-  }
+		// ajouter des lignes supplémentaires si l'option CRUD est spécifiée
+		if (choice.option) {
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/managers/managerAll.mustache",
+				"utf8"
+			);
+		} else {
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/managers/managerUnique.mustache",
+				"utf8"
+			);
+		}
 
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "${
-		choice.nom
-	}" table
-    const [rows] = await this.database.query(\`select * from \${this.table}\`);
-
-    // Return the array of items
-    return rows;
-  }
-
-  ${
-		choice.option
-			? `
-  // The C of CRUD - Create operation
-  async create(item) {
-    // Execute the SQL INSERT query to add a new item to the "${choice.nom}" table
-    const [result] = await this.database.query(
-      \`insert into \${this.table} (title) values (?)\`,
-      [item.title]
-    );
-
-    // Return the ID of the newly inserted item
-    return result.insertId;
-  }
-
-	// The U of CRUD - Update operation
-	async update(item) {
-		// Execute the SQL UPDATE query to update an existing item in the "${choice.nom}" table
-		const [result] = await this.database.query(
-			\`update \${this.table} set title = ? where id = ?\`,
-			[item.title, item.id]
-		);
-		return result.affectedRows;
-	}
-
-	// The D of CRUD - Delete operation
-	async delete(id) {
-		// Execute the SQL DELETE query to remove the item from the "${choice.nom}" table
-		const [result] = await this.database.query(
-			\`delete from \${this.table} where id = ?\`,
-			[id]
-		);
-		return result.affectedRows;
-	}
-  `
-			: ""
-  }
-}
-
-module.exports = ${capitalize(choice.nom)}Manager;
-`;
+		// Remplacer les variables dans le template
+		fileContent = mustache.render(fileContent, {
+			table: choice.nom,
+			className: capitalize(choice.nom),
+		});
 
 		// Créer le fichier avec le contenu
-		fs.writeFileSync(filePath, fileContent);
+		fs.writeFileSync(filePath, fileContent, (err) => {
+			if (err) throw err;
+		});
 
 		console.log(
-			chalk.green(
-				`Fichier manager créé avec succès : ${filePath
-					.split("/")
-					.pop()} 🚀`
+			chalk.greenBright(
+				`Le fichier ${capitalize(
+					choice.nom
+				)}Manager a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
+			)
+		);
+	});
+
+// Nouvelle commande make:abstract
+program
+	.command("make:abstract")
+	.description("Crée un fichier abstract dans le dossier Managers")
+	.action(async () => {
+		const projectRoot = process.cwd();
+		const srcFolder = path.join(projectRoot, "src");
+		const managerFolder = path.join(srcFolder, "models");
+
+		// Vérifier si le dossier src existe, sinon le créer
+		if (!fs.existsSync(srcFolder)) {
+			fs.mkdirSync(srcFolder);
+		}
+
+		// Vérifier si le dossier Managers existe, sinon le créer
+		if (!fs.existsSync(managerFolder)) {
+			fs.mkdirSync(managerFolder);
+		}
+
+		// Chemin complet du fichier à créer
+		const filePath = path.join(managerFolder, `AbstractManager.js`);
+
+		// Contenu du fichier
+		let fileContent = fs.readFileSync(
+			__dirname + "/templates/managers/abstract.mustache",
+			"utf8"
+		);
+
+		fileContent = mustache.render(fileContent);
+
+		// Créer le fichier avec le contenu
+		fs.writeFileSync(filePath, fileContent, (err) => {
+			if (err) throw err;
+		});
+
+		console.log(
+			chalk.greenBright(
+				`Le fichier 'AbstractManager' a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
 			)
 		);
 	});

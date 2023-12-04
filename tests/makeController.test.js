@@ -1,20 +1,19 @@
 const execa = require("execa");
 const fs = require("fs").promises;
 const path = require("path");
-const capitalize = require("../services/capitalize");
 
-const makeManager = async (choice) =>
+const makeController = async (choice) =>
 	new Promise((resolve, reject) => {
-		const commandArgs = ["index.js", "make:manager"];
+		const commandArgs = ["index.js", "make:controller"];
 		const subprocess = execa("node", commandArgs);
 
 		subprocess.stdout.on("data", async (data) => {
-			if (data.includes("Quel est le nom du manager ?")) {
+			if (data.includes("Quel est le nom du controller ?")) {
 				subprocess.stdin.write(choice.nom + "\n");
 			}
 			if (
 				data.includes(
-					"Voulez-vous générer toutes les méthodes du manager ? (C.R.U.D)"
+					"Voulez-vous générer toutes les méthodes du controller ? (B.R.E.A.D)"
 				)
 			) {
 				subprocess.stdin.write(choice.option + "\n");
@@ -30,8 +29,8 @@ const makeManager = async (choice) =>
 			// Construire le chemin du fichier de contrôleur
 			const filePath = path.resolve(
 				__dirname,
-				"../src/models",
-				`${choice.nom}Manager.js`
+				"../src/controllers",
+				`${choice.nom}Controllers.js`
 			);
 
 			// Vérifie que le fichier a bien été créé
@@ -42,17 +41,32 @@ const makeManager = async (choice) =>
 				return;
 			}
 
-			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
-			const fileContent = await fs.readFile(filePath, "utf-8");
-			if (
-				!fileContent.includes(
-					`class ${capitalize(
-						choice.nom
-					)}Manager extends AbstractManager`
-				)
-			) {
-				reject(new Error("Le contenu du fichier n'est pas correct"));
-				return;
+			// Vérifie que le contenu du fichier est correct
+			let fileContent = await fs.readFile(filePath, "utf-8");
+			let fileContentLines = fileContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			let expectedContent = `const browse = async (req, res, next) => {
+  // Ton code pour la fonction browse ici
+};`;
+			let expectedContentLines = expectedContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			for (let i = 0; i < expectedContentLines.length; i++) {
+				if (fileContentLines[i] !== expectedContentLines[i]) {
+					reject(
+						new Error(
+							`La ligne ${
+								i + 1
+							} du fichier n'est pas correcte. Attendu: "${
+								expectedContentLines[i]
+							}", Obtenu: "${fileContentLines[i]}"`
+						)
+					);
+					return;
+				}
 			}
 			resolve();
 		});
@@ -62,8 +76,8 @@ const cleanup = async (choice) => {
 	// Construire le chemin du fichier de contrôleur
 	const filePath = path.resolve(
 		__dirname,
-		"../src/models",
-		`${choice.nom}Manager.js`
+		"../src/controllers",
+		`${choice.nom}Controllers.js`
 	);
 
 	try {
@@ -77,15 +91,15 @@ const cleanup = async (choice) => {
 	}
 };
 
-describe("make:manager", () => {
+describe("make:controller", () => {
 	test("with simple file", async () => {
-		await makeManager({ nom: "test", option: "false" });
+		await makeController({ nom: "test", option: "false" });
 		expect(true).toBe(true);
 		await cleanup({ nom: "test" });
 	});
 
 	test("with complex file", async () => {
-		await makeManager({ nom: "test", option: "true" });
+		await makeController({ nom: "test", option: "true" });
 		expect(true).toBe(true);
 		await cleanup({ nom: "test" });
 	});

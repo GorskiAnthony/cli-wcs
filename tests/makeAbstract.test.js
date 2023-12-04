@@ -2,23 +2,10 @@ const execa = require("execa");
 const fs = require("fs").promises;
 const path = require("path");
 
-const makeController = async (choice) =>
+const makeAbstract = async () =>
 	new Promise((resolve, reject) => {
-		const commandArgs = ["index.js", "make:controller"];
+		const commandArgs = ["index.js", "make:abstract"];
 		const subprocess = execa("node", commandArgs);
-
-		subprocess.stdout.on("data", async (data) => {
-			if (data.includes("Quel est le nom du controller ?")) {
-				subprocess.stdin.write(choice.nom + "\n");
-			}
-			if (
-				data.includes(
-					"Voulez-vous générer toutes les méthodes du controller ? (B.R.E.A.D)"
-				)
-			) {
-				subprocess.stdin.write(choice.option + "\n");
-			}
-		});
 
 		subprocess.on("close", async (code) => {
 			if (code !== 0) {
@@ -29,8 +16,8 @@ const makeController = async (choice) =>
 			// Construire le chemin du fichier de contrôleur
 			const filePath = path.resolve(
 				__dirname,
-				"../src/controllers",
-				`${choice.nom}Controllers.js`
+				"../src/models",
+				`AbstractManager.js`
 			);
 
 			// Vérifie que le fichier a bien été créé
@@ -43,11 +30,7 @@ const makeController = async (choice) =>
 
 			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
 			const fileContent = await fs.readFile(filePath, "utf-8");
-			if (
-				!fileContent.includes(`const browse = async (req, res, next) => {
-  // Ton code ici
-};`)
-			) {
+			if (!fileContent.includes(`class AbstractManager`)) {
 				reject(new Error("Le contenu du fichier n'est pas correct"));
 				return;
 			}
@@ -55,12 +38,12 @@ const makeController = async (choice) =>
 		});
 	});
 
-const cleanup = async (choice) => {
+const cleanup = async () => {
 	// Construire le chemin du fichier de contrôleur
 	const filePath = path.resolve(
 		__dirname,
-		"../src/controllers",
-		`${choice.nom}Controllers.js`
+		"../src/models",
+		`AbstractManager.js`
 	);
 
 	try {
@@ -74,16 +57,10 @@ const cleanup = async (choice) => {
 	}
 };
 
-describe("make:controller", () => {
+describe("make:abstract", () => {
 	test("with simple file", async () => {
-		await makeController({ nom: "test", option: "false" });
+		await makeAbstract();
 		expect(true).toBe(true);
-		await cleanup({ nom: "test" });
-	});
-
-	test("with complex file", async () => {
-		await makeController({ nom: "test", option: "true" });
-		expect(true).toBe(true);
-		await cleanup({ nom: "test" });
+		await cleanup();
 	});
 });

@@ -27,7 +27,7 @@ const makeManager = async (choice) =>
 				return;
 			}
 
-			// Construire le chemin du fichier de contrôleur
+			// Construire le chemin du fichier du manager
 			const filePath = path.resolve(
 				__dirname,
 				"../src/models",
@@ -79,7 +79,7 @@ class ${capitalize(choice.nom)} extends AbstractManager {
 	});
 
 const cleanup = async (choice) => {
-	// Construire le chemin du fichier de contrôleur
+	// Construire le chemin du fichier du manager
 	const filePath = path.resolve(
 		__dirname,
 		"../src/models",

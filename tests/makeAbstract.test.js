@@ -13,7 +13,7 @@ const makeAbstract = async () =>
 				return;
 			}
 
-			// Construire le chemin du fichier de contrôleur
+			// Construire le chemin du fichier de model
 			const filePath = path.resolve(
 				__dirname,
 				"../src/models",
@@ -28,7 +28,7 @@ const makeAbstract = async () =>
 				return;
 			}
 
-			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
+			// Vérifie que le contenu du fichier est correct
 			const fileContent = await fs.readFile(filePath, "utf-8");
 			if (!fileContent.includes(`class AbstractManager`)) {
 				reject(new Error("Le contenu du fichier n'est pas correct"));
@@ -39,7 +39,6 @@ const makeAbstract = async () =>
 	});
 
 const cleanup = async () => {
-	// Construire le chemin du fichier de contrôleur
 	const filePath = path.resolve(
 		__dirname,
 		"../src/models",
@@ -58,7 +57,7 @@ const cleanup = async () => {
 };
 
 describe("make:abstract", () => {
-	test("with simple file", async () => {
+	test("create simple file", async () => {
 		await makeAbstract();
 		expect(true).toBe(true);
 		await cleanup();

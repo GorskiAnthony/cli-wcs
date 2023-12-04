@@ -13,7 +13,7 @@ const capitalize = require("./services/capitalize");
 const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 
-const VERSION = "1.2.2";
+const VERSION = "1.2.5";
 
 program
 	.version(VERSION)

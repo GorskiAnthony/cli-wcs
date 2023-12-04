@@ -1,6 +1,6 @@
 {
 	"name": "cli-wild",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"description": "Ce package permet de créer des controllers, manager sur le template de projet de la Wild Code School",
 	"main": "index.js",
 	"scripts": {
@@ -12,7 +12,7 @@
 		"email": "anthony.gorski@wildcodeschool.com"
 	},
 	"bin": {
-		"cli-wcs": "index.js"
+		"cli-wild": "./index.js"
 	},
 	"bugs": {
 		"url": "https://github.com/GorskiAnthony/cli-wcs/issues"

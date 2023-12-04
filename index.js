@@ -4,6 +4,7 @@ const { program } = require("commander");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+
 const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
 
@@ -11,8 +12,10 @@ const capitalize = require("./services/capitalize");
 const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 
+const VERSION = "1.1.2";
+
 program
-	.version("1.0.0")
+	.version(VERSION)
 	.description("CLI pour générer des fichiers controller et des managers.");
 
 // Commande avec option
@@ -22,9 +25,9 @@ program
 	.option("-v, --version", "Affiche la version")
 	.action((options) => {
 		if (options.version) {
-			console.log("Version 1.0.0");
+			console.log(`Version: ${VERSION}`);
 		} else {
-			console.log("Informations générales.");
+			console.log("Aucune option spécifiée");
 		}
 	});
 
@@ -105,9 +108,10 @@ module.exports = {
 
 		console.log(
 			chalk.greenBright(
-				`🎊 Fichier controller créé avec succès : ${filePath
-					.split("/")
-					.pop()}`
+				`Le fichier 'controller' a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
 			)
 		);
 	});
@@ -143,8 +147,10 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `
-class ${capitalize(choice.nom)}Manager {
+		let fileContent = `// Import the AbstractManager class
+const AbstractManager = require("./AbstractManager");
+
+class ${capitalize(choice.nom)}Manager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "${choice.nom}" as configuration
@@ -220,9 +226,61 @@ module.exports = ${capitalize(choice.nom)}Manager;
 
 		console.log(
 			chalk.green(
-				`Fichier manager créé avec succès : ${filePath
-					.split("/")
-					.pop()} 🚀`
+				`Le fichier 'manager' a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
+			)
+		);
+	});
+
+// Nouvelle commande make:abstract
+program
+	.command("make:abstract")
+	.description("Crée un fichier abstract dans le dossier Managers")
+	.action(async () => {
+		const projectRoot = process.cwd();
+		const srcFolder = path.join(projectRoot, "src");
+		const managerFolder = path.join(srcFolder, "models");
+
+		// Vérifier si le dossier src existe, sinon le créer
+		if (!fs.existsSync(srcFolder)) {
+			fs.mkdirSync(srcFolder);
+		}
+
+		// Vérifier si le dossier Managers existe, sinon le créer
+		if (!fs.existsSync(managerFolder)) {
+			fs.mkdirSync(managerFolder);
+		}
+
+		// Chemin complet du fichier à créer
+		const filePath = path.join(managerFolder, `AbstractManager.js`);
+
+		// Contenu du fichier
+		let fileContent = `const database = require("<votre chemin de db>"); // Remplacer le chemin par le chemin correct de votre fichier de config
+
+class AbstractManager {
+	constructor({ table }) {
+		// Get the database connection from the global object
+		this.database = database;
+
+		// Store the table name in the instance
+		this.table = table;
+	}
+}
+
+module.exports = AbstractManager;
+`;
+
+		// Créer le fichier avec le contenu
+		fs.writeFileSync(filePath, fileContent);
+
+		console.log(
+			chalk.green(
+				`Le fichier 'abstract' a était créé avec succès : ${path.relative(
+					process.cwd(),
+					filePath
+				)}`
 			)
 		);
 	});

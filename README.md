@@ -1,6 +1,6 @@
 <h1 align="center">Bienvenue sur cli-wild 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.1.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.1.2-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/GorskiAnthony/wcs-cli#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -27,17 +27,24 @@ npm install -g cli-wild
 ```sh
 cli-wild make:controller # Créer un controller
 cli-wild make:manager # Créer un model
+cli-wild make:abstract # Créer un model abstrait
 ```
 
 ## Usage
 
-Il faut se déplacer dans le dossier (`backend`) de votre projet et lancer la commande suivante :
+Il faut se déplacer à la racine de votre projet (`backend`) et lancer la commande suivante :
 
 ```sh
 cli-wild make:controller
 # OU
 npx cli-wild make:controller
 ```
+
+Celui-ci va vous poser des questions afin de générer le controller & votre manager.
+
+![exemple1](./docs/controllers.png)
+![exemple2](./docs/managers.png)
+![error](./docs/errorController.png)
 
 ## Exemples
 

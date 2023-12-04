@@ -41,15 +41,32 @@ const makeController = async (choice) =>
 				return;
 			}
 
-			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
-			const fileContent = await fs.readFile(filePath, "utf-8");
-			if (
-				!fileContent.includes(`const browse = async (req, res, next) => {
-  // Ton code ici
-};`)
-			) {
-				reject(new Error("Le contenu du fichier n'est pas correct"));
-				return;
+			// Vérifie que le contenu du fichier est correct
+			let fileContent = await fs.readFile(filePath, "utf-8");
+			let fileContentLines = fileContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			let expectedContent = `const browse = async (req, res, next) => {
+  // Ton code pour la fonction browse ici
+};`;
+			let expectedContentLines = expectedContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			for (let i = 0; i < expectedContentLines.length; i++) {
+				if (fileContentLines[i] !== expectedContentLines[i]) {
+					reject(
+						new Error(
+							`La ligne ${
+								i + 1
+							} du fichier n'est pas correcte. Attendu: "${
+								expectedContentLines[i]
+							}", Obtenu: "${fileContentLines[i]}"`
+						)
+					);
+					return;
+				}
 			}
 			resolve();
 		});

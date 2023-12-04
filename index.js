@@ -4,6 +4,7 @@ const { program } = require("commander");
 const chalk = require("chalk");
 const fs = require("fs");
 const path = require("path");
+const mustache = require("mustache");
 
 const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
@@ -62,53 +63,32 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `const browse = async (req, res, next) => {
-  // Ton code ici
-};
-
-`;
+		let fileContent = "";
 
 		// Ajouter du contenu supplémentaire si l'option --all est spécifiée
 		if (choice.option) {
-			fileContent += `
-const read = async (req, res, next) => {
-  // Ton code pour la fonction read ici
-};
-
-const edit = async (req, res, next) => {
-  // Ton code pour la fonction edit ici
-};
-
-const add = async (req, res, next) => {
-	  // Ton code pour la fonction add ici
-};
-
-const destroy = async (req, res, next) => {
-	  // Ton code pour la fonction destroy ici
-};
-
-
-module.exports = {
-  browse,
-  read,
-  edit,
-  add,
-  destroy,
-};
-`;
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/controllers/controllersAll.mustache",
+				"utf8"
+			);
 		} else {
-			fileContent += `module.exports = {
-  browse,
-};
-`;
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/controllers/controllersUnique.mustache",
+				"utf8"
+			);
 		}
 
-		// Créer le fichier avec le contenu
-		fs.writeFileSync(filePath, fileContent);
+		const controllers = mustache.render(fileContent);
 
+		// Créer le fichier avec le contenu
+		fs.writeFileSync(filePath, controllers, (err) => {
+			if (err) throw err;
+		});
 		console.log(
 			chalk.greenBright(
-				`Le fichier 'controller' a était créé avec succès : ${path.relative(
+				`Le fichier ${
+					choice.nom
+				}Controllers a était créé avec succès : ${path.relative(
 					process.cwd(),
 					filePath
 				)}`
@@ -147,86 +127,37 @@ program
 		);
 
 		// Contenu du fichier
-		let fileContent = `// Import the AbstractManager class
-const AbstractManager = require("./AbstractManager");
+		let fileContent = "";
 
-class ${capitalize(choice.nom)}Manager extends AbstractManager {
-  constructor() {
-    // Call the constructor of the parent class (AbstractManager)
-    // and pass the table name "${choice.nom}" as configuration
-    super({ table: "${choice.nom}" });
-  }
-  
-  // The Rs of CRUD - Read operations
-  async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific item by its ID
-    const [rows] = await this.database.query(
-      \`select * from \${this.table} where id = ?\`,
-      [id]
-    );
+		// ajouter des lignes supplémentaires si l'option CRUD est spécifiée
+		if (choice.option) {
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/managers/managerAll.mustache",
+				"utf8"
+			);
+		} else {
+			fileContent = fs.readFileSync(
+				__dirname + "/templates/managers/managerUnique.mustache",
+				"utf8"
+			);
+		}
 
-    // Return the first row of the result, which represents the item
-    return rows[0];
-  }
-
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "${
-		choice.nom
-	}" table
-    const [rows] = await this.database.query(\`select * from \${this.table}\`);
-
-    // Return the array of items
-    return rows;
-  }
-
-  ${
-		choice.option
-			? `
-  // The C of CRUD - Create operation
-  async create(item) {
-    // Execute the SQL INSERT query to add a new item to the "${choice.nom}" table
-    const [result] = await this.database.query(
-      \`insert into \${this.table} (title) values (?)\`,
-      [item.title]
-    );
-
-    // Return the ID of the newly inserted item
-    return result.insertId;
-  }
-
-	// The U of CRUD - Update operation
-	async update(item) {
-		// Execute the SQL UPDATE query to update an existing item in the "${choice.nom}" table
-		const [result] = await this.database.query(
-			\`update \${this.table} set title = ? where id = ?\`,
-			[item.title, item.id]
-		);
-		return result.affectedRows;
-	}
-
-	// The D of CRUD - Delete operation
-	async delete(id) {
-		// Execute the SQL DELETE query to remove the item from the "${choice.nom}" table
-		const [result] = await this.database.query(
-			\`delete from \${this.table} where id = ?\`,
-			[id]
-		);
-		return result.affectedRows;
-	}
-  `
-			: ""
-  }
-}
-
-module.exports = ${capitalize(choice.nom)}Manager;
-`;
+		// Remplacer les variables dans le template
+		fileContent = mustache.render(fileContent, {
+			table: choice.nom,
+			className: capitalize(choice.nom),
+		});
 
 		// Créer le fichier avec le contenu
-		fs.writeFileSync(filePath, fileContent);
+		fs.writeFileSync(filePath, fileContent, (err) => {
+			if (err) throw err;
+		});
 
 		console.log(
-			chalk.green(
-				`Le fichier 'manager' a était créé avec succès : ${path.relative(
+			chalk.greenBright(
+				`Le fichier ${capitalize(
+					choice.nom
+				)}Manager a était créé avec succès : ${path.relative(
 					process.cwd(),
 					filePath
 				)}`
@@ -257,27 +188,21 @@ program
 		const filePath = path.join(managerFolder, `AbstractManager.js`);
 
 		// Contenu du fichier
-		let fileContent = `const database = require("<votre chemin de db>"); // Remplacer le chemin par le chemin correct de votre fichier de config
+		let fileContent = fs.readFileSync(
+			__dirname + "/templates/managers/abstract.mustache",
+			"utf8"
+		);
 
-class AbstractManager {
-	constructor({ table }) {
-		// Get the database connection from the global object
-		this.database = database;
-
-		// Store the table name in the instance
-		this.table = table;
-	}
-}
-
-module.exports = AbstractManager;
-`;
+		fileContent = mustache.render(fileContent);
 
 		// Créer le fichier avec le contenu
-		fs.writeFileSync(filePath, fileContent);
+		fs.writeFileSync(filePath, fileContent, (err) => {
+			if (err) throw err;
+		});
 
 		console.log(
-			chalk.green(
-				`Le fichier 'abstract' a était créé avec succès : ${path.relative(
+			chalk.greenBright(
+				`Le fichier 'AbstractManager' a était créé avec succès : ${path.relative(
 					process.cwd(),
 					filePath
 				)}`

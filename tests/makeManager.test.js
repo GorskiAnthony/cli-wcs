@@ -42,17 +42,37 @@ const makeManager = async (choice) =>
 				return;
 			}
 
-			// Vérifie que le contenu du fichier est correct (contient le nom du controller)
-			const fileContent = await fs.readFile(filePath, "utf-8");
-			if (
-				!fileContent.includes(
-					`class ${capitalize(
-						choice.nom
-					)}Manager extends AbstractManager`
-				)
-			) {
-				reject(new Error("Le contenu du fichier n'est pas correct"));
-				return;
+			// Vérifie que le contenu du fichier est correct
+			let fileContent = await fs.readFile(filePath, "utf-8");
+			let fileContentLines = fileContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			let expectedContent = `const AbstractManager = require("./AbstractManager");
+
+class ${capitalize(choice.nom)} extends AbstractManager {
+	constructor() {
+		// Call the constructor of the parent class (AbstractManager)
+		// and pass the table name "${choice.nom}" as configuration
+		super({ table: "${choice.nom}" });
+	}`;
+			let expectedContentLines = expectedContent
+				.split("\n")
+				.map((line) => line.trim());
+
+			for (let i = 0; i < expectedContentLines.length; i++) {
+				if (fileContentLines[i] !== expectedContentLines[i]) {
+					reject(
+						new Error(
+							`La ligne ${
+								i + 1
+							} du fichier n'est pas correcte. Attendu: "${
+								expectedContentLines[i]
+							}", Obtenu: "${fileContentLines[i]}"`
+						)
+					);
+					return;
+				}
 			}
 			resolve();
 		});

@@ -42,8 +42,8 @@ npx cli-wild make:controller
 
 Celui-ci va vous poser des questions afin de générer le controller & votre manager.
 
-![exemple1](./docs/controllers.png)
-![exemple2](./docs/managers.png)
+![exemple1](./docs/controller.png)
+![exemple2](./docs/manager.png)
 ![exemple3](./docs/abstract.png)
 ![error](./docs/errorController.png)
 

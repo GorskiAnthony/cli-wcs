@@ -60,7 +60,7 @@ Pour plus d'exemples, il faut se rendre dans le dossier [examples](./examples) d
 
 ## 🤝 Contributing
 
-Les contributions, les problèmes et les demandes de fonctionnalités sont les bienvenus !<br />N'hésitez pas à consulter la page des [issues](https://github.com/GorskiAnthony/wcs-cli/issues).
+Les contributions, les problèmes et les demandes de fonctionnalités sont les bienvenus !<br />N'hésitez pas à consulter la page des [issues](https://github.com/GorskiAnthony/cli-wcs/issues).
 
 ## Affichez votre soutien
 

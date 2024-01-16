@@ -26,7 +26,7 @@ npm install -g cli-wild
 
 ```sh
 cli-wild make:controller # Créer un controller
-cli-wild make:manager # Créer un model
+cli-wild make:repository # Créer un model
 cli-wild make:abstract # Créer un model abstrait
 ```
 
@@ -42,10 +42,26 @@ npx cli-wild make:controller
 
 Celui-ci va vous poser des questions afin de générer le controller & votre manager.
 
+### Exemple de génération d'un controller
+
+```sh
+cli-wild make:controller
+```
 ![exemple1](./docs/controller.png)
-![exemple2](./docs/manager.png)
+
+```sh
+cli-wild make:repository
+```
+![exemple2](./docs/repository.png)
+![error](./docs/errorRepository.png)
+
+```sh
+cli-wild make:astract
+```
 ![exemple3](./docs/abstract.png)
-![error](./docs/errorController.png)
+
+> [!NOTE]  
+> En sachant que les erreurs du repository sont les mêmes pour l'abstract et le controller.
 
 ## Exemples
 

@@ -118,7 +118,7 @@ program
  * Celui ci utilise la librairie inquirer pour poser des questions à l'utilisateur et récupérer ses réponses et la librairie mustache pour générer le contenu du fichier
  */
 program
-  .command("make:manager")
+  .command("make:repository")
   .description("Créer un fichier manager dans le dossier database/models")
   .action(async () => {
     const choice = await prompt([

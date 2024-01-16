@@ -16,8 +16,8 @@ const makeAbstract = async () =>
       // Construire le chemin du fichier de model
       const filePath = path.resolve(
         __dirname,
-        "../src/models",
-        `AbstractManager.js`,
+        "../database/models",
+        `AbstractRepository.js`,
       );
 
       // Vérifie que le fichier a bien été créé
@@ -30,7 +30,7 @@ const makeAbstract = async () =>
 
       // Vérifie que le contenu du fichier est correct
       const fileContent = await fs.readFile(filePath, "utf-8");
-      if (!fileContent.includes(`class AbstractManager`)) {
+      if (!fileContent.includes(`class AbstractRepository`)) {
         reject(new Error("Le contenu du fichier n'est pas correct"));
         return;
       }
@@ -41,8 +41,8 @@ const makeAbstract = async () =>
 const cleanup = async () => {
   const filePath = path.resolve(
     __dirname,
-    "../src/models",
-    `AbstractManager.js`,
+    "../database/models",
+    `AbstractRepository.js`,
   );
 
   try {

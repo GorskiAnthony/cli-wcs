@@ -30,7 +30,7 @@ const makeController = async (choice) =>
       const filePath = path.resolve(
         __dirname,
         "../src/controllers",
-        `${choice.nom}Controllers.js`,
+        `${choice.nom}Actions.js`,
       );
 
       // Vérifie que le fichier a bien été créé
@@ -73,7 +73,7 @@ const cleanup = async (choice) => {
   const filePath = path.resolve(
     __dirname,
     "../src/controllers",
-    `${choice.nom}Controllers.js`,
+    `${choice.nom}Actions.js`,
   );
 
   try {

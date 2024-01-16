@@ -5,16 +5,16 @@ const capitalize = require("../services/capitalize");
 
 const makeManager = async (choice) =>
   new Promise((resolve, reject) => {
-    const commandArgs = ["index.js", "make:manager"];
+    const commandArgs = ["index.js", "make:repository"];
     const subprocess = execa("node", commandArgs);
 
     subprocess.stdout.on("data", async (data) => {
-      if (data.includes("Quel est le nom du manager ?")) {
+      if (data.includes("Quel est le nom du repository ?")) {
         subprocess.stdin.write(choice.nom + "\n");
       }
       if (
         data.includes(
-          "Voulez-vous générer toutes les méthodes du manager ? (C.R.U.D)",
+          "Voulez-vous générer toutes les méthodes du repository ? (C.R.U.D)",
         )
       ) {
         subprocess.stdin.write(choice.option + "\n");
@@ -27,11 +27,11 @@ const makeManager = async (choice) =>
         return;
       }
 
-      // Construire le chemin du fichier du manager
+      // Construire le chemin du fichier du repository
       const filePath = path.resolve(
         __dirname,
-        "../src/models",
-        `${choice.nom}Manager.js`,
+        "../database/models",
+        `${choice.nom}Repository.js`,
       );
 
       // Vérifie que le fichier a bien été créé
@@ -46,11 +46,11 @@ const makeManager = async (choice) =>
       let fileContent = await fs.readFile(filePath, "utf-8");
       let fileContentLines = fileContent.split("\n").map((line) => line.trim());
 
-      let expectedContent = `const AbstractManager = require("./AbstractManager");
+      let expectedContent = `const AbstractRepository = require("./AbstractRepository");
 
-class ${capitalize(choice.nom)} extends AbstractManager {
+class ${capitalize(choice.nom)}Repository extends AbstractRepository {
 	constructor() {
-		// Call the constructor of the parent class (AbstractManager)
+		// Call the constructor of the parent class (AbstractRepository)
 		// and pass the table name "${choice.nom}" as configuration
 		super({ table: "${choice.nom}" });
 	}`;
@@ -75,11 +75,11 @@ class ${capitalize(choice.nom)} extends AbstractManager {
   });
 
 const cleanup = async (choice) => {
-  // Construire le chemin du fichier du manager
+  // Construire le chemin du fichier du repository
   const filePath = path.resolve(
     __dirname,
-    "../src/models",
-    `${choice.nom}Manager.js`,
+    "../database/models",
+    `${choice.nom}Repository.js`,
   );
 
   try {
@@ -93,7 +93,7 @@ const cleanup = async (choice) => {
   }
 };
 
-describe("make:manager", () => {
+describe("make:repository", () => {
   test("with simple file", async () => {
     await makeManager({ nom: "test", option: "false" });
     expect(true).toBe(true);

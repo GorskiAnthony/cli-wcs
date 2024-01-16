@@ -46,12 +46,16 @@ Celui-ci va vous poser des questions afin de générer le controller & votre man
 
 ```sh
 cli-wild make:controller
+# Avec l'alias
+cli-wild m:c
 ```
 ![exemple1](./docs/controller.png)
 
 ### Exemple de génération d'un repository
 ```sh
 cli-wild make:repository
+# Avec l'alias
+cli-wild m:r
 ```
 ![exemple2](./docs/repository.png)
 ![error](./docs/errorRepository.png)
@@ -59,6 +63,8 @@ cli-wild make:repository
 ### Exemple de génération d'une class abstract
 ```sh
 cli-wild make:astract
+# Avec l'alias
+cli-wild m:a
 ```
 ![exemple3](./docs/abstract.png)
 

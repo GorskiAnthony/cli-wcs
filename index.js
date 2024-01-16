@@ -95,7 +95,7 @@ program
 		success(
 			`Le fichier ${
 				choice.nom
-			}Controllers a était créé avec succès : ${path.relative(
+			}Controllers a été créé avec succès : ${path.relative(
 				process.cwd(),
 				filePath
 			)}`
@@ -162,7 +162,7 @@ program
 		success(
 			`Le fichier ${capitalize(
 				choice.nom
-			)}Manager a était créé avec succès : ${path.relative(
+			)}Manager a été créé avec succès : ${path.relative(
 				process.cwd(),
 				filePath
 			)}`
@@ -205,7 +205,7 @@ program
 		});
 
 		success(
-			`Le fichier AbstractManager a était créé avec succès : ${path.relative(
+			`Le fichier AbstractManager a été créé avec succès : ${path.relative(
 				process.cwd(),
 				filePath
 			)}`

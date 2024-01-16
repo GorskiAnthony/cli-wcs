@@ -47,6 +47,7 @@ program
  */
 program
   .command("make:controller")
+  .alias("m:c")
   .description("Créer un fichier controller dans le dossier controller")
   .action(async () => {
     const choice = await prompt([
@@ -119,6 +120,7 @@ program
  */
 program
   .command("make:repository")
+  .alias("m:r")
   .description("Créer un fichier manager dans le dossier database/models")
   .action(async () => {
     const choice = await prompt([
@@ -198,6 +200,7 @@ program
  */
 program
   .command("make:abstract")
+  .alias("m:a")
   .description("Créer un fichier abstract dans le dossier database/models")
   .action(async () => {
     const projectRoot = process.cwd();

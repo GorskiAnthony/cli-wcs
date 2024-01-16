@@ -14,7 +14,7 @@
 
 > Ce package permet de générer des controllers ainsi que des models pour votre backend via la CLI.
 
-### 🏠 [Homepage](https://github.com/GorskiAnthony/wcs-cli#readme)
+### 🏠 [Homepage](https://github.com/GorskiAnthony/cli-wcs#readme)
 
 ## Install
 

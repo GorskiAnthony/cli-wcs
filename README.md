@@ -1,6 +1,6 @@
 <h1 align="center">Bienvenue sur cli-wild 👋</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.2.6-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-2.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/GorskiAnthony/wcs-cli#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> Ce package permet de générer des controllers ainsi que des models pour votre backend via la CLI.
+> Ce package permet de générer des controllers ainsi que des models pour votre backend via la CLI. Ce package est destiné aux étudiants de la Wild Code School. Mais il peut être utilisé par n'importe qui.
 
 ### 🏠 [Homepage](https://github.com/GorskiAnthony/cli-wcs#readme)
 
@@ -32,7 +32,7 @@ cli-wild make:abstract # Créer un model abstrait
 
 ## Usage
 
-Il faut se déplacer à la racine de votre projet (`backend`) et lancer la commande suivante :
+Il faut se déplacer à la racine de votre projet (`server`) et lancer la commande suivante :
 
 ```sh
 cli-wild make:controller
@@ -78,6 +78,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 -   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
 -   **v1.1.0** - Ajout des questions pour la création d'un controller
 -   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
+-  **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
 
 ---
 

@@ -1,13 +1,22 @@
-const database = require("<votre chemin de db>"); // Remplacer le chemin par le chemin correct de votre fichier de config
+// Import database client
+const database = require("<chemin de votre db>");
 
-class AbstractManager {
-	constructor({ table }) {
-		// Get the database connection from the global object
-		this.database = database;
+// Provide database access through AbstractRepository class
+class AbstractRepository {
+    constructor({ table }) {
+        if (this.constructor === AbstractRepository) {
+            throw new TypeError(
+            "Abstract class 'AbstractRepository' cannot be instantiated directly"
+            );
+        }
 
-		// Store the table name in the instance
-		this.table = table;
-	}
+        // Store the table name
+        this.table = table;
+
+        // Provide access to the database client
+        this.database = database;
+    }
 }
 
-module.exports = AbstractManager;
+// Ready to export
+module.exports = AbstractRepository;

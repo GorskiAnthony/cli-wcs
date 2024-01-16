@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-const { program } = require("commander");
-const fs = require("node:fs");
 const path = require("node:path");
+const fs = require("node:fs");
+const { program } = require("commander");
 const mustache = require("mustache");
 const { createPromptModule } = require("inquirer");
 const prompt = createPromptModule();
 
-const { success } = require("./services/log");
+const { success, error } = require("./services/log");
 const capitalize = require("./services/capitalize");
 const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 const createFolderIfNotExists = require("./services/createFolderIfNotExists");
 
-const VERSION = "1.2.6";
+const VERSION = "2.0.0";
 
 /**
  * @description
@@ -47,7 +47,7 @@ program
  */
 program
   .command("make:controller")
-  .description("Créer un fichier controller dans le dossier Controller")
+  .description("Créer un fichier controller dans le dossier controller")
   .action(async () => {
     const choice = await prompt([
       promptController.inputController,
@@ -67,8 +67,18 @@ program
     // Chemin complet du fichier à créer
     const filePath = path.join(
       controllerFolder,
-      `${choice.nom.toLowerCase()}Controllers.js`,
+      `${choice.nom.toLowerCase()}Actions.js`,
     );
+
+    // Si le fichier existe déjà, on ne le crée pas
+    if (fs.existsSync(filePath)) {
+      return error(
+        `Le fichier ${choice.nom}Actions.js existe déjà : ${path.relative(
+          process.cwd(),
+          filePath,
+        )}`,
+      );
+    }
 
     // Contenu du fichier
     let fileContent = "";
@@ -95,7 +105,7 @@ program
     success(
       `Le fichier ${
         choice.nom
-      }Controllers a été créé avec succès : ${path.relative(
+      }Actions.js a été créé avec succès : ${path.relative(
         process.cwd(),
         filePath,
       )}`,
@@ -109,7 +119,7 @@ program
  */
 program
   .command("make:manager")
-  .description("Créer un fichier manager dans le dossier Managers")
+  .description("Créer un fichier manager dans le dossier database/models")
   .action(async () => {
     const choice = await prompt([
       promptManager.inputManager,
@@ -117,11 +127,11 @@ program
     ]);
 
     const projectRoot = process.cwd();
-    const srcFolder = path.join(projectRoot, "src");
-    const managerFolder = path.join(srcFolder, "models");
+    const databaseFolder = path.join(projectRoot, "database");
+    const managerFolder = path.join(databaseFolder, "models");
 
     // Vérifier si le dossier src existe, sinon le créer
-    createFolderIfNotExists(srcFolder);
+    createFolderIfNotExists(databaseFolder);
 
     // Vérifier si le dossier Managers existe, sinon le créer
     createFolderIfNotExists(managerFolder);
@@ -129,8 +139,20 @@ program
     // Chemin complet du fichier à créer
     const filePath = path.join(
       managerFolder,
-      `${capitalize(choice.nom)}Manager.js`,
+      `${capitalize(choice.nom)}Repository.js`,
     );
+
+    // Si le fichier existe déjà, on ne le crée pas
+    if (fs.existsSync(filePath)) {
+      return error(
+        `Le fichier ${capitalize(
+          choice.nom,
+        )}Repository.js existe déjà : ${path.relative(
+          process.cwd(),
+          filePath,
+        )}`,
+      );
+    }
 
     // Contenu du fichier
     let fileContent = "";
@@ -151,7 +173,7 @@ program
     // Remplacer les variables dans le template
     fileContent = mustache.render(fileContent, {
       table: choice.nom,
-      className: capitalize(choice.nom),
+      className: `${capitalize(choice.nom)}Repository`,
     });
 
     // Créer le fichier avec le contenu
@@ -162,7 +184,7 @@ program
     success(
       `Le fichier ${capitalize(
         choice.nom,
-      )}Manager a été créé avec succès : ${path.relative(
+      )}Repository.js a été créé avec succès : ${path.relative(
         process.cwd(),
         filePath,
       )}`,
@@ -176,10 +198,10 @@ program
  */
 program
   .command("make:abstract")
-  .description("Créer un fichier abstract dans le dossier Managers")
+  .description("Créer un fichier abstract dans le dossier database/models")
   .action(async () => {
     const projectRoot = process.cwd();
-    const srcFolder = path.join(projectRoot, "src");
+    const srcFolder = path.join(projectRoot, "database");
     const managerFolder = path.join(srcFolder, "models");
 
     // Vérifier si le dossier src existe, sinon le créer
@@ -189,7 +211,7 @@ program
     createFolderIfNotExists(managerFolder);
 
     // Chemin complet du fichier à créer
-    const filePath = path.join(managerFolder, `AbstractManager.js`);
+    const filePath = path.join(managerFolder, `AbstractRepository.js`);
 
     // Contenu du fichier
     let fileContent = fs.readFileSync(
@@ -205,7 +227,7 @@ program
     });
 
     success(
-      `Le fichier AbstractManager a été créé avec succès : ${path.relative(
+      `Le fichier AbstractRepository.js a été créé avec succès : ${path.relative(
         process.cwd(),
         filePath,
       )}`,

@@ -92,6 +92,12 @@ Pour plus d'exemples, il faut se rendre dans le dossier [examples](./examples) d
 -   𝕏 - (Twitter): [@Gorski_Anthony](https://twitter.com/Gorski_Anthony)
 -   GitHub: [@GorskiAnthony](https://github.com/GorskiAnthony)
 
+## 👩‍💻 Contributors
+
+👤 **Romain Guillemot**
+
+-   GitHub: [@rocambille](https://github.com/rocambille)
+
 ## 🤝 Contributing
 
 Les contributions, les problèmes et les demandes de fonctionnalités sont les bienvenus !<br />N'hésitez pas à consulter la page des [issues](https://github.com/GorskiAnthony/cli-wcs/issues).

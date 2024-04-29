@@ -66,7 +66,7 @@ cli-wild m:r
 ### Exemple de génération d'une class abstract
 
 ```sh
-cli-wild make:astract
+cli-wild make:abstract
 # Avec l'alias
 cli-wild m:a
 ```

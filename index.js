@@ -13,7 +13,7 @@ const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 const createFolderIfNotExists = require("./services/createFolderIfNotExists");
 
-const VERSION = "2.1.0";
+const VERSION = "5.0";
 
 /**
  * @description

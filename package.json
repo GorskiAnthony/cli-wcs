@@ -1,44 +1,44 @@
 {
-  "name": "cli-wild",
-  "version": "2.1.0",
-  "description": "Ce package permet de créer des controllers/actions, models/repositories sur le template de projet de la Wild Code School",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
-  "author": {
-    "name": "Anthony gorski",
-    "email": "anthony.gorski@wildcodeschool.com"
-  },
-  "bin": {
-    "cli-wild": "index.js"
-  },
-  "bugs": {
-    "url": "https://github.com/GorskiAnthony/cli-wcs/issues"
-  },
-  "homepage": "https://github.com/GorskiAnthony/cli-wcs#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GorskiAnthony/cli-wcs.git"
-  },
-  "keywords": [
-    "cli",
-    "controller",
-    "models",
-    "projet",
-    "js",
-    "Wild Code School"
-  ],
-  "license": "ISC",
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "commander": "^11.1.0",
-    "inquirer": "^8.2.6",
-    "mustache": "^4.2.0"
-  },
-  "devDependencies": {
-    "execa": "^5.1.1",
-    "jest": "^29.7.0"
-  }
+	"name": "cli-wild",
+	"version": "5.0",
+	"description": "Ce package permet de créer des controllers/actions, models/repositories sur le template de projet de la Wild Code School",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"test:watch": "jest --watch"
+	},
+	"author": {
+		"name": "Anthony gorski",
+		"email": "anthony.gorski@wildcodeschool.com"
+	},
+	"bin": {
+		"cli-wild": "index.js"
+	},
+	"bugs": {
+		"url": "https://github.com/GorskiAnthony/cli-wcs/issues"
+	},
+	"homepage": "https://github.com/GorskiAnthony/cli-wcs#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GorskiAnthony/cli-wcs.git"
+	},
+	"keywords": [
+		"cli",
+		"controller",
+		"models",
+		"projet",
+		"js",
+		"Wild Code School"
+	],
+	"license": "ISC",
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"commander": "^11.1.0",
+		"inquirer": "^8.2.6",
+		"mustache": "^4.2.0"
+	},
+	"devDependencies": {
+		"execa": "^5.1.1",
+		"jest": "^29.7.0"
+	}
 }

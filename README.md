@@ -40,7 +40,7 @@ cli-wild make:controller
 npx cli-wild make:controller
 ```
 
-Celui-ci va vous poser des questions afin de générer le controller & votre manager.
+Celui-ci va vous poser des questions afin de générer votre controller ou votre model.
 
 ### Exemple de génération d'un controller
 

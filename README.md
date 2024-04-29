@@ -40,7 +40,7 @@ cli-wild make:controller
 npx cli-wild make:controller
 ```
 
-Celui-ci va vous poser des questions afin de générer le controller & votre manager.
+Celui-ci va vous poser des questions afin de générer votre controller ou votre model.
 
 ### Exemple de génération d'un controller
 
@@ -92,6 +92,12 @@ Pour plus d'exemples, il faut se rendre dans le dossier [examples](./examples) d
 -   𝕏 - (Twitter): [@Gorski_Anthony](https://twitter.com/Gorski_Anthony)
 -   GitHub: [@GorskiAnthony](https://github.com/GorskiAnthony)
 
+## 👩‍💻 Contributors
+
+👤 **Romain Guillemot**
+
+-   GitHub: [@rocambille](https://github.com/rocambille)
+
 ## 🤝 Contributing
 
 Les contributions, les problèmes et les demandes de fonctionnalités sont les bienvenus !<br />N'hésitez pas à consulter la page des [issues](https://github.com/GorskiAnthony/cli-wcs/issues).
@@ -114,6 +120,9 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 -   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
 -   **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
 -   **v2.1.0** - Changement de la racine du backend `src` à `app` et modification des images du README
+-   **v5.0**
+    -   Mise à jours des descriptions, de l'arborescence et des commandes.
+    -   Mise à niveau vers la version d'[harmonia](https://www.npmjs.com/package/create-harmonia)
 
 ---
 

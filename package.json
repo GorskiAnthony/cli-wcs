@@ -1,7 +1,7 @@
 {
 	"name": "cli-wild",
-	"version": "2.1.0",
-	"description": "Ce package permet de créer des controllers, manager sur le template de projet de la Wild Code School",
+	"version": "5.0",
+	"description": "Ce package permet de créer des controllers/actions, models/repositories sur le template de projet de la Wild Code School",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
@@ -25,7 +25,7 @@
 	"keywords": [
 		"cli",
 		"controller",
-		"manager",
+		"models",
 		"projet",
 		"js",
 		"Wild Code School"

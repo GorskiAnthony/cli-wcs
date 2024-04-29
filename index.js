@@ -13,7 +13,7 @@ const promptController = require("./services/promptController");
 const promptManager = require("./services/promptManager");
 const createFolderIfNotExists = require("./services/createFolderIfNotExists");
 
-const VERSION = "5.0";
+const VERSION = "5.0.0";
 
 /**
  * @description
@@ -21,7 +21,9 @@ const VERSION = "5.0";
  */
 program
 	.version(VERSION)
-	.description("CLI pour générer des fichiers controllers/actions et des models/repositories.");
+	.description(
+		"CLI pour générer des fichiers controllers/actions et des models/repositories."
+	);
 
 /**
  * @description

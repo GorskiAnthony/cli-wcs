@@ -1,6 +1,6 @@
 {
 	"name": "cli-wild",
-	"version": "5.0",
+	"version": "5.0.0",
 	"description": "Ce package permet de créer des controllers/actions, models/repositories sur le template de projet de la Wild Code School",
 	"main": "index.js",
 	"scripts": {

@@ -1,6 +1,6 @@
 const execa = require("execa");
-const fs = require("fs").promises;
-const path = require("path");
+const fs = require("node:fs").promises;
+const path = require("node:path");
 
 const makeController = async (choice) =>
 	new Promise((resolve, reject) => {
@@ -29,8 +29,8 @@ const makeController = async (choice) =>
 			// Construire le chemin du fichier de contrôleur
 			const filePath = path.resolve(
 				__dirname,
-				"../src/controllers",
-				`${choice.nom}Controllers.js`
+				"../app/controllers",
+				`${choice.nom}Actions.js`
 			);
 
 			// Vérifie que le fichier a bien été créé
@@ -47,9 +47,8 @@ const makeController = async (choice) =>
 				.split("\n")
 				.map((line) => line.trim());
 
-			let expectedContent = `const browse = async (req, res, next) => {
-  // Ton code pour la fonction browse ici
-};`;
+			let expectedContent = `const tables = require("../../database/tables");
+`;
 			let expectedContentLines = expectedContent
 				.split("\n")
 				.map((line) => line.trim());
@@ -76,8 +75,8 @@ const cleanup = async (choice) => {
 	// Construire le chemin du fichier de contrôleur
 	const filePath = path.resolve(
 		__dirname,
-		"../src/controllers",
-		`${choice.nom}Controllers.js`
+		"../app/controllers",
+		`${choice.nom}Actions.js`
 	);
 
 	try {

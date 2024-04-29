@@ -1,12 +1,9 @@
-/**
- * Si ont ne choisi pas toutes les méthodes, le contenu du fichier sera:
- */
-const AbstractManager = require("./AbstractManager");
+const AbstractRepository = require("./AbstractRepository");
 
-class UserManager extends AbstractManager {
+class UserRepository extends AbstractRepository {
 	constructor() {
-		// Call the constructor of the parent class (AbstractManager)
-		// and pass the table name "User" as configuration
+		// Call the constructor of the parent class (AbstractRepository)
+		// and pass the table name "user" as configuration
 		super({ table: "user" });
 	}
 
@@ -23,7 +20,7 @@ class UserManager extends AbstractManager {
 	}
 
 	async readAll() {
-		// Execute the SQL SELECT query to retrieve all items from the "User" table
+		// Execute the SQL SELECT query to retrieve all items from the "user" table
 		const [rows] = await this.database.query(`select * from ${this.table}`);
 
 		// Return the array of items
@@ -31,4 +28,4 @@ class UserManager extends AbstractManager {
 	}
 }
 
-module.exports = UserManager;
+module.exports = UserRepository;

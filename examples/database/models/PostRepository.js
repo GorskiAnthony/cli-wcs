@@ -1,12 +1,8 @@
-/**
- * Si ont choisi toutes les méthodes, le contenu du fichier sera:
- */
+const AbstractRepository = require("./AbstractRepository");
 
-const AbstractManager = require("./AbstractManager");
-
-class PostManager extends AbstractManager {
+class PostRepository extends AbstractRepository {
 	constructor() {
-		// Call the constructor of the parent class (AbstractManager)
+		// Call the constructor of the parent class (AbstractRepository)
 		// and pass the table name "post" as configuration
 		super({ table: "post" });
 	}
@@ -54,4 +50,4 @@ class PostManager extends AbstractManager {
 	}
 }
 
-module.exports = PostManager;
+module.exports = PostRepository;

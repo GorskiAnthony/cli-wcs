@@ -21,7 +21,7 @@ const VERSION = "2.1.0";
  */
 program
 	.version(VERSION)
-	.description("CLI pour générer des fichiers controller et des managers.");
+	.description("CLI pour générer des fichiers controllers/actions et des models/repositories.");
 
 /**
  * @description
@@ -123,7 +123,7 @@ program
 program
 	.command("make:repository")
 	.alias("m:r")
-	.description("Créer un fichier manager dans le dossier database/models")
+	.description("Créer un fichier Repository dans le dossier database/models")
 	.action(async () => {
 		const choice = await prompt([
 			promptManager.inputManager,
@@ -132,17 +132,17 @@ program
 
 		const projectRoot = process.cwd();
 		const databaseFolder = path.join(projectRoot, "database");
-		const managerFolder = path.join(databaseFolder, "models");
+		const modelsFolder = path.join(databaseFolder, "models");
 
 		// Vérifier si le dossier src existe, sinon le créer
 		createFolderIfNotExists(databaseFolder);
 
-		// Vérifier si le dossier Managers existe, sinon le créer
-		createFolderIfNotExists(managerFolder);
+		// Vérifier si le dossier models existe, sinon le créer
+		createFolderIfNotExists(modelsFolder);
 
 		// Chemin complet du fichier à créer
 		const filePath = path.join(
-			managerFolder,
+			modelsFolder,
 			`${capitalize(choice.nom)}Repository.js`
 		);
 
@@ -164,12 +164,12 @@ program
 		// ajouter des lignes supplémentaires si l'utilisateur a choisi l'option CRUD
 		if (choice.option) {
 			fileContent = fs.readFileSync(
-				__dirname + "/templates/managers/managerAll.mustache",
+				__dirname + "/templates/models/AllRepository.mustache",
 				"utf8"
 			);
 		} else {
 			fileContent = fs.readFileSync(
-				__dirname + "/templates/managers/managerUnique.mustache",
+				__dirname + "/templates/models/UniqueRepository.mustache",
 				"utf8"
 			);
 		}
@@ -207,20 +207,20 @@ program
 	.action(async () => {
 		const projectRoot = process.cwd();
 		const srcFolder = path.join(projectRoot, "database");
-		const managerFolder = path.join(srcFolder, "models");
+		const modelsFolder = path.join(srcFolder, "models");
 
 		// Vérifier si le dossier src existe, sinon le créer
 		createFolderIfNotExists(srcFolder);
 
-		// Vérifier si le dossier Managers existe, sinon le créer
-		createFolderIfNotExists(managerFolder);
+		// Vérifier si le dossier models existe, sinon le créer
+		createFolderIfNotExists(modelsFolder);
 
 		// Chemin complet du fichier à créer
-		const filePath = path.join(managerFolder, `AbstractRepository.js`);
+		const filePath = path.join(modelsFolder, `AbstractRepository.js`);
 
 		// Contenu du fichier
 		let fileContent = fs.readFileSync(
-			__dirname + "/templates/managers/abstract.mustache",
+			__dirname + "/templates/models/AbstractRepository.mustache",
 			"utf8"
 		);
 

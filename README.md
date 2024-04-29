@@ -50,7 +50,9 @@ cli-wild make:controller
 cli-wild m:c
 ```
 
-![exemple1](./docs/controller.png)
+![exemple1](./docs/m-c-yes.png)
+![exemple2](./docs/m-c-no.png)
+![exemple3](./docs/m-c_error.png)
 
 ### Exemple de génération d'un repository
 
@@ -60,8 +62,9 @@ cli-wild make:repository
 cli-wild m:r
 ```
 
-![exemple2](./docs/repository.png)
-![error](./docs/errorRepository.png)
+![exemple4](./docs/m-r-yes.png)
+![exemple5](./docs/m-r-no.png)
+![exemple6](./docs/m-r_error.png)
 
 ### Exemple de génération d'une class abstract
 
@@ -71,10 +74,12 @@ cli-wild make:abstract
 cli-wild m:a
 ```
 
-![exemple3](./docs/abstract.png)
+![exemple7](./docs/m-a.png)
 
 > [!NOTE]  
-> En sachant que les erreurs du repository sont les mêmes pour l'abstract et le controller.
+> En sachant que les erreurs du repository sont les mêmes pour l'abstract et le controller. Et si un fichier existe déjà, on vous l'affiche.
+
+![exemple8](./docs/m-r-c_exist.png)
 
 ## Exemples
 
@@ -108,6 +113,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 -   **v1.1.0** - Ajout des questions pour la création d'un controller
 -   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
 -   **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
+-   **v2.1.0** - Changement de la racine du backend `src` à `app` et modification des images du README
 
 ---
 

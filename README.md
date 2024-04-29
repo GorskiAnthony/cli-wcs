@@ -32,7 +32,7 @@ cli-wild make:abstract # Créer un model abstrait
 
 ## Usage
 
-Il faut se déplacer à la racine de votre projet (`server`) et lancer la commande suivante :
+Il faut se déplacer à la racine de votre projet ensuite, il faut se rendre dans le dossier `server` et lancer la commande suivante :
 
 ```sh
 cli-wild make:controller
@@ -49,23 +49,28 @@ cli-wild make:controller
 # Avec l'alias
 cli-wild m:c
 ```
+
 ![exemple1](./docs/controller.png)
 
 ### Exemple de génération d'un repository
+
 ```sh
 cli-wild make:repository
 # Avec l'alias
 cli-wild m:r
 ```
+
 ![exemple2](./docs/repository.png)
 ![error](./docs/errorRepository.png)
 
 ### Exemple de génération d'une class abstract
+
 ```sh
 cli-wild make:astract
 # Avec l'alias
 cli-wild m:a
 ```
+
 ![exemple3](./docs/abstract.png)
 
 > [!NOTE]  
@@ -102,7 +107,7 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 -   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
 -   **v1.1.0** - Ajout des questions pour la création d'un controller
 -   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
--  **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
+-   **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
 
 ---
 

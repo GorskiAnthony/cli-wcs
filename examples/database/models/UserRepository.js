@@ -26,28 +26,6 @@ class UserRepository extends AbstractRepository {
 		// Return the array of items
 		return rows;
 	}
-
-	// The C of CRUD - Create operation
-	async create(item) {
-		// Execute the SQL INSERT query to add a new item to the "user" table
-		const [result] = await this.database.query(
-			`insert into ${this.table} (title) values (?)`,
-			[item.title]
-		);
-
-		// Return the ID of the newly inserted item
-		return result.insertId;
-	}
-
-	// The U of CRUD - Update operation
-	async update(item) {
-		// TODO: Implement the update operation to modify an existing item
-	}
-
-	// The D of CRUD - Delete operation
-	async delete(id) {
-		// TODO: Implement the delete operation to remove an item by its ID
-	}
 }
 
 module.exports = UserRepository;

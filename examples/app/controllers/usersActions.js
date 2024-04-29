@@ -1,9 +1,7 @@
-/**
- * Si ont choisi toutes les méthodes, le contenu du fichier sera:
- */
+const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
-	// Ton code ici
+	// Ton code pour la fonction browse ici
 };
 
 const read = async (req, res, next) => {

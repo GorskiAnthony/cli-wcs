@@ -32,7 +32,7 @@ cli-wild make:abstract # Créer un model abstrait
 
 ## Usage
 
-Il faut se déplacer à la racine de votre projet (`server`) et lancer la commande suivante :
+Il faut se déplacer à la racine de votre projet ensuite, il faut se rendre dans le dossier `server` et lancer la commande suivante :
 
 ```sh
 cli-wild make:controller
@@ -49,27 +49,37 @@ cli-wild make:controller
 # Avec l'alias
 cli-wild m:c
 ```
-![exemple1](./docs/controller.png)
+
+![exemple1](./docs/m-c-yes.png)
+![exemple2](./docs/m-c-no.png)
+![exemple3](./docs/m-c_error.png)
 
 ### Exemple de génération d'un repository
+
 ```sh
 cli-wild make:repository
 # Avec l'alias
 cli-wild m:r
 ```
-![exemple2](./docs/repository.png)
-![error](./docs/errorRepository.png)
+
+![exemple4](./docs/m-r-yes.png)
+![exemple5](./docs/m-r-no.png)
+![exemple6](./docs/m-r_error.png)
 
 ### Exemple de génération d'une class abstract
+
 ```sh
-cli-wild make:astract
+cli-wild make:abstract
 # Avec l'alias
 cli-wild m:a
 ```
-![exemple3](./docs/abstract.png)
+
+![exemple7](./docs/m-a.png)
 
 > [!NOTE]  
-> En sachant que les erreurs du repository sont les mêmes pour l'abstract et le controller.
+> En sachant que les erreurs du repository sont les mêmes pour l'abstract et le controller. Et si un fichier existe déjà, on vous l'affiche.
+
+![exemple8](./docs/m-r-c_exist.png)
 
 ## Exemples
 
@@ -102,7 +112,8 @@ This project is [ISC](https://github.com/GorskiAnthony/wcs-cli/blob/master/LICEN
 -   **v1.0.0** - Version 1 stable de la CLI `cli-wild`
 -   **v1.1.0** - Ajout des questions pour la création d'un controller
 -   **v1.2.0** - Ajout d'un prompt pour la création d'une classe abstraite
--  **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
+-   **v2.0.0** - Mise à jour de la CLI pour la nouvelle version du framework de la Wild Code School
+-   **v2.1.0** - Changement de la racine du backend `src` à `app` et modification des images du README
 
 ---
 

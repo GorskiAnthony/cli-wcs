@@ -3,7 +3,7 @@ const fs = require("node:fs").promises;
 const path = require("node:path");
 const capitalize = require("../services/capitalize");
 
-const makeManager = async (choice) =>
+const makeRepository = async (choice) =>
   new Promise((resolve, reject) => {
     const commandArgs = ["index.js", "make:repository"];
     const subprocess = execa("node", commandArgs);
@@ -31,7 +31,7 @@ const makeManager = async (choice) =>
       const filePath = path.resolve(
         __dirname,
         "../database/models",
-        `${choice.nom}Repository.js`,
+        `${capitalize(choice.nom)}Repository.js`,
       );
 
       // Vérifie que le fichier a bien été créé
@@ -79,7 +79,7 @@ const cleanup = async (choice) => {
   const filePath = path.resolve(
     __dirname,
     "../database/models",
-    `${choice.nom}Repository.js`,
+    `${capitalize(choice.nom)}Repository.js`,
   );
 
   try {
@@ -95,13 +95,13 @@ const cleanup = async (choice) => {
 
 describe("make:repository", () => {
   test("with simple file", async () => {
-    await makeManager({ nom: "test", option: "false" });
+    await makeRepository({ nom: "test", option: "false" });
     expect(true).toBe(true);
     await cleanup({ nom: "test" });
   });
 
   test("with complex file", async () => {
-    await makeManager({ nom: "test", option: "true" });
+    await makeRepository({ nom: "test", option: "true" });
     expect(true).toBe(true);
     await cleanup({ nom: "test" });
   });
